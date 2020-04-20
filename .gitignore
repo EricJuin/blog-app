@@ -46,4 +46,4 @@ testem.log
 Thumbs.db
 
 # Ignore config environement
-src/environements/*
+/src/environements/*

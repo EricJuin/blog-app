@@ -1,0 +1,66 @@
+<div class="container-fluid full-height">
+
+  <div class="row full-height">
+    <div class="col-12 full-height">
+      <div class="p-2">
+        <button mat-raised-button color="primary" (click)="addPagina()">Crear</button>
+        <button mat-raised-button>Vista previa</button>
+        <button mat-raised-button color="accent">Limpiar</button>
+        <button mat-raised-button color="warn">Eliminar</button>
+      </div>
+
+      <form [formGroup]="formPagina" class="container">
+        <div class="row">
+          <mat-form-field class="example-full-width col-6">
+            <mat-label>Url</mat-label>
+            <input matInput placeholder="Ex. Pizza" formControlName="url">
+          </mat-form-field>
+          <mat-form-field class="example-full-width col-6">
+            <mat-label>Título</mat-label>
+            <input matInput placeholder="Ex. Pizza" formControlName="titulo">
+          </mat-form-field>
+          <div class="col-12 container-fluid">
+            <div class="row">
+              <div class="col-12">
+                <app-form-etiqueta (emisionEtiqueta)="getEtiqueta($event)"></app-form-etiqueta>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div cdkDropListGroup>
+          <div class="col-12">
+            <h2>Contenido</h2>
+            <div cdkDropList [cdkDropListData]="contenido" class="example-list" (cdkDropListDropped)="drop($event)"
+              formArrayName="contenido">
+              <div class="example-box" *ngFor="let item of contenido.controls; let i = index" cdkDrag>
+                <!--Se mira cual es el tipo de componente y según el que sea se crea el adecuado-->
+                <div [ngSwitch]="nombreComponentes[i]" class="container-fluid w-100">
+                  <div *ngSwitchCase="'TEXTO'" class="row">
+                    <app-temp-text class="col-12 border p-2" (textoProp)="getEventTexto($event)" [index]="i"></app-temp-text>
+                  </div>
+                  <div *ngSwitchCase="'ENLACE'" class="row">
+                    <app-temp-enlace class="col-12 border p-2" (enlaceProp)="getEventEnlace($event)" [index]="i"></app-temp-enlace>
+                  </div>
+                  <div *ngSwitchCase="'FOTO'" class="row">
+                    <app-temp-foto class="col-12 border p-2" (urlFotoProp)="getEventFoto($event)" [index]="i"></app-temp-foto>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="componentes-contenedor">
+            <div cdkDropList [cdkDropListData]="componentes" (cdkDropListDropped)="drop($event)">
+              <div *ngFor="let item of componentes" cdkDrag [cdkDragData]="item" class="componente"><span
+                  class="material-icons">
+                  {{item.icono}}
+                </span></div>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+</div>

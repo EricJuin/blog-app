@@ -1,0 +1,14 @@
+<div appNgDropFiles [archivos]="archivos" class="drop-zone d-flex justify-content-start">
+  <div *ngIf="archivos.length === 0">
+    Deje caer una foto para subirla
+  </div>
+  <div *ngFor="let archivo of archivos" class="contenedor-img ">
+    <div class="p-2">
+
+      <img [src]="archivo.dataURL" class="max-size">
+      <div class="position-sticky">
+        <mat-progress-bar mode="determinate" [value]="archivo.progreso" class="card-title"></mat-progress-bar>
+      </div>
+    </div>
+  </div>
+</div>

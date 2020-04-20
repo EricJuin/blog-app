@@ -1,0 +1,9 @@
+<section class="container-fluid" id="galeria">
+  <mat-card class="contenedor-img" *ngFor="let item of items | async" (click)="selectItem(item)">
+    <mat-card-content class="img">
+      <img [src]="item.url">
+      <button mat-button (click)="delete(item)"><span class="material-icons">delete</span></button>
+      <span>{{item.fechaSubida | date:'short'}}</span>
+    </mat-card-content>
+  </mat-card>
+</section>

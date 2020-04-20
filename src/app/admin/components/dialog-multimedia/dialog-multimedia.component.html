@@ -1,0 +1,8 @@
+<section class="container-fluid" id="galeria">
+    <mat-card class="contenedor-img" *ngFor="let item of items | async" (click)="selectItem(item)">
+      <mat-card-content class="img">
+        <img [src]="item.url">
+        <span>{{item.fechaSubida | date:'short'}}</span>
+      </mat-card-content>
+    </mat-card>
+  </section>

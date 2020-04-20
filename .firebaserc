@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "app-blog-bf2d5": {
+      "hosting": {
+        "blog-app": [
+          "app-blog-bf2d5"
+        ]
+      }
+    }
+  }
+}

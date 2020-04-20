@@ -1,0 +1,9 @@
+.contenedor-etiquetas {
+  width: 100%;
+  height: 50px;
+  box-shadow: inset grey 0px 0px 5px;
+}
+
+.example-chip-list {
+  width: 100%;
+}

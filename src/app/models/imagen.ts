@@ -1,9 +1,9 @@
-export class Multimedia{
+export class Imagen{
     archivo:File;
     nombreArchivo:string;
     url:string;
-    subiendo:boolean;
-    progreso:number;
+    subiendo?:boolean;
+    progreso?:number;
     dataURL:any;
 
     constructor(archivo:File){

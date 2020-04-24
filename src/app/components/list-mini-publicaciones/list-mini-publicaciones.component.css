@@ -1,0 +1,8 @@
+.card-publicacion{
+    box-shadow: grey -1px -1px 5px;
+    transition: transform 1s;
+}
+.card-publicacion:hover{
+    transform: scale(1.02);
+    
+}

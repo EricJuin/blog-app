@@ -19,7 +19,7 @@ export class FormPaginaComponent implements OnInit {
   nombreComponentes = [];
   formPagina: FormGroup;
   pagina: Pagina = new Pagina();
-  listaComponentes = [];
+  listaComponentes = [];//Plantilla de los componentes creados
 
   constructor(public _compS: ComponentesService, public fb: FormBuilder, public _adminS:AdminService) {
     this.componentes = this._compS.getComponentes();

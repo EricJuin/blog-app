@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Multimedia } from '../models/multimedia';
-import * as firebase from 'firebase';
-import { Observable } from 'rxjs';
+import { Imagen } from '../models/imagen';
+import * as firebase from 'firebase/app';
+import 'firebase/storage'
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class FileService {
    * si las imagenes existen no las añade
    * @param imagenes lista de imagenes que se quiere añadir a storage y database
    */
-  cargarImagenes(imagenes: Multimedia[]) {
+  cargarImagenes(imagenes: Imagen[]) {
     const storageRef = firebase.storage().ref();
 
     for (const imagen of imagenes) {
@@ -41,7 +42,7 @@ export class FileService {
               this.getImagenByNombre(imagen.nombreArchivo).then(
                 docs => {
                   if (docs.empty) {
-                    this.addImagen({ nombre: imagen.nombreArchivo, url: imagen.url, fechaSubida: new Date().toDateString() });
+                    this.addImagenDatabase({ nombre: imagen.nombreArchivo, url: imagen.url, fechaSubida: new Date().toDateString() });
                   }
                 }
               )
@@ -52,11 +53,11 @@ export class FileService {
     }
   }
   /**
-   * Añade un objeto a la coleción imagenes de database, es de donde se sacará la url para 
+   * Añade un objeto a la colección imagenes de database, es de donde se sacará la url para 
    * mostrar la imagen
    * @param archivo el objeto que se va  a añadir a database de firestore
    */
-  addImagen(archivo: { nombre: string, url: string, fechaSubida: string }) {
+  addImagenDatabase(archivo: { nombre: string, url: string, fechaSubida: string }) {
     this.db.collection(this.CARPETA_IMG).add(archivo).then();
   }
   /**

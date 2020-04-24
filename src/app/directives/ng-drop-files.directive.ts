@@ -1,5 +1,5 @@
 import { Directive, HostListener, Input } from '@angular/core';
-import { Multimedia } from '../models/multimedia';
+import { Imagen } from '../models/imagen';
 import { FileService } from '../services/file.service';
 
 @Directive({
@@ -7,7 +7,7 @@ import { FileService } from '../services/file.service';
 })
 export class NgDropFilesDirective {
 
-  @Input() archivos: Multimedia[] = [];
+  @Input() archivos: Imagen[] = [];
 
   constructor(public _fileS:FileService) { }
 
@@ -36,7 +36,7 @@ export class NgDropFilesDirective {
     for (const propiedad in Object.getOwnPropertyNames(listArchivos)) {
       const temp = listArchivos[propiedad];
       if (this._puedeSubir(temp)) {
-        const archivoNuevo: Multimedia = new Multimedia(temp);
+        const archivoNuevo: Imagen = new Imagen(temp);
         let reader = new FileReader();
 
         reader.readAsDataURL(temp);

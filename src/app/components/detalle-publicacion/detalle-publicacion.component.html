@@ -1,0 +1,19 @@
+<div class="container" *ngIf="pagina">
+    <div class="row">
+        <h1 class="col-12 text-center">{{pagina.titulo}}</h1>
+        <small class="col-12 text-center">{{pagina.fechaCreacion}}</small>
+    </div>
+    <div *ngFor="let componente of pagina.componentes">
+        <div [ngSwitch]="componente.nombre">
+            <div *ngSwitchCase="'TEXTO'">
+                <app-temp-texto [contenido]="componente.contenido"></app-temp-texto>
+            </div>
+            <div *ngSwitchCase="'ENLACE'">
+                <app-temp-enlace [contenido]="componente.contenido"></app-temp-enlace>
+            </div>
+            <div *ngSwitchCase="'FOTO'">
+                <app-temp-foto-pagina [contenido]="componente.contenido"></app-temp-foto-pagina>
+            </div>
+        </div>
+    </div>
+</div>

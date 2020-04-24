@@ -1,21 +1,28 @@
 import { Injectable } from '@angular/core';
 import { Etiqueta } from '../models/etiqueta';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { map, flatMap, tap } from 'rxjs/operators';
 import { Pagina } from '../models/pagina';
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
 
+  private DB_PAG:string = "paginas";
+  private DB_ETIQUETAS:string = "etiquetas";
 
   constructor(public db:AngularFirestore) { 
     
   }
 
   //Pagina service
+
+  listPaginas(){
+    return this.db.collection(this.DB_PAG).snapshotChanges();
+  }
+
+
   addPagina(pagina:Pagina){
-    return this.db.collection('paginas').add(pagina);
+    return this.db.collection(this.DB_PAG).add(pagina);
   }
 
   
@@ -42,10 +49,10 @@ export class AdminService {
    * @param nombreEtiqueta el nombre de la etiqueta que buscamos
    */
   getEtiqueta(nombreEtiqueta:string){
-    return this.db.firestore.collection('etiquetas').where('nombre','==',nombreEtiqueta).get();
+    return this.db.firestore.collection(this.DB_ETIQUETAS).where('nombre','==',nombreEtiqueta).get();
   }
   
   get coleccionEtiqueta(){
-    return this.db.collection<Etiqueta>("etiquetas");
+    return this.db.collection<Etiqueta>(this.DB_ETIQUETAS);
   }
 }

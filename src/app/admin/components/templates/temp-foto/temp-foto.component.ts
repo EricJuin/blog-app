@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { FileService } from '../../../../services/file.service';
-import { DialogMultimediaComponent } from '../../dialog-multimedia/dialog-multimedia.component';
+import { DialogImagenComponent } from '../../dialog-imagen/dialog-imagen.component';
 
 @Component({
   selector: 'app-temp-foto',
@@ -37,6 +37,6 @@ export class TempFotoComponent implements OnInit {
   }
 
   abrirGaleriaFoto() {
-    this.dialog.open(DialogMultimediaComponent);
+    this.dialog.open(DialogImagenComponent);
   }
 } 

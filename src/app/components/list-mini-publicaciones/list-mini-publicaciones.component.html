@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 d-inline-flex justify-content-around flex-wrap">
+      <div class="card border-0 card-publicacion mb-2" style="width: 18rem;" *ngFor="let publicacion of publicaciones"
+       (click)="verPublicacion(publicacion)">
+        <img class="card-img-top" [src]="getFotoPublicacion(publicacion)" alt="Card image cap">
+        <div class="card-body">
+          <p class="card-text">{{publicacion.titulo}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

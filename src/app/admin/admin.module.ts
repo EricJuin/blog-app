@@ -28,14 +28,17 @@ import { TempVideoComponent } from './components/templates/temp-video/temp-video
 import { TempSaltoLineaComponent } from './components/templates/temp-salto-linea/temp-salto-linea.component';
 import { TempSubtituloComponent } from './components/templates/temp-subtitulo/temp-subtitulo.component';
 import { MultimediaComponent } from './components/multimedia/multimedia.component';
-import { FormMultimediaComponent } from './components/form-multimedia/form-multimedia.component';
+import { FormImagenComponent } from './components/form-imagen/form-imagen.component';
 import { NgDropFilesDirective } from '../directives/ng-drop-files.directive';
-import { ListMultimediaComponent } from './components/list-multimedia/list-multimedia.component';
+import { ListImagenComponent } from './components/list-imagen/list-imagen.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatDialogModule} from '@angular/material/dialog';
-import { DialogMultimediaComponent } from './components/dialog-multimedia/dialog-multimedia.component';
-
+import { DialogImagenComponent } from './components/dialog-imagen/dialog-imagen.component';
+import { ListPaginaComponent } from './components/list-pagina/list-pagina.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -52,10 +55,11 @@ import { DialogMultimediaComponent } from './components/dialog-multimedia/dialog
     TempSaltoLineaComponent,
     TempSubtituloComponent,
     MultimediaComponent,
-    FormMultimediaComponent,
+    FormImagenComponent,
     NgDropFilesDirective,
-    ListMultimediaComponent,
-    DialogMultimediaComponent
+    ListImagenComponent,
+    DialogImagenComponent,
+    ListPaginaComponent
     
   ],
   imports: [
@@ -76,7 +80,10 @@ import { DialogMultimediaComponent } from './components/dialog-multimedia/dialog
     MatAutocompleteModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
     
   ]
 })

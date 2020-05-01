@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-pagina',
@@ -15,12 +16,12 @@ import { map } from 'rxjs/operators';
 export class ListPaginaComponent implements OnInit {
 
   paginas:Pagina[] = [];
-  displayedColumns: string[] = ['titulo', 'creador', 'fechaCreacion', 'publicada'];
+  displayedColumns: string[] = ['titulo', 'creador', 'ultimaEdicion', 'publicada'];
   dataSource: MatTableDataSource<Pagina> = new MatTableDataSource();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  constructor(public _adminS: AdminService) { }
+  constructor(public _adminS: AdminService,public route:Router) { }
 
   ngOnInit() {
     this.getPaginas();
@@ -52,6 +53,13 @@ export class ListPaginaComponent implements OnInit {
         )
       } 
     )
+  }
+
+  verPagina(pagina){
+    if(pagina){
+      this._adminS.pagina = pagina;
+      this.route.navigate(['/admin/form-pagina']);
+    }
   }
 
 }

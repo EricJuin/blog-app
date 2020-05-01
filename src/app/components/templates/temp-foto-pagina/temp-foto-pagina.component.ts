@@ -2,10 +2,10 @@ import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-temp-foto-pagina',
-  templateUrl: './temp-foto.component.html',
-  styleUrls: ['./temp-foto.component.css']
+  templateUrl: './temp-foto-pagina.component.html',
+  styleUrls: ['./temp-foto-pagina.component.css']
 })
-export class TempFotoComponent implements OnInit {
+export class TempFotoPaginaComponent implements OnInit {
 
   @Input() contenido:string;
   constructor() { }

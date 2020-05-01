@@ -39,6 +39,9 @@ import { ListPaginaComponent } from './components/list-pagina/list-pagina.compon
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { BotonCambioPublicadaComponent } from './components/boton-cambio-publicada/boton-cambio-publicada.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -59,7 +62,8 @@ import {MatSortModule} from '@angular/material/sort';
     NgDropFilesDirective,
     ListImagenComponent,
     DialogImagenComponent,
-    ListPaginaComponent
+    ListPaginaComponent,
+    BotonCambioPublicadaComponent
     
   ],
   imports: [
@@ -83,7 +87,10 @@ import {MatSortModule} from '@angular/material/sort';
     MatDialogModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatSlideToggleModule
     
   ]
 })

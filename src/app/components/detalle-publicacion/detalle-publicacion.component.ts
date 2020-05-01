@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { Pagina } from '../../models/pagina';
@@ -10,7 +10,7 @@ import { Pagina } from '../../models/pagina';
 })
 export class DetallePublicacionComponent implements OnInit {
 
-  pagina:Pagina;
+  @Input() pagina:Pagina;
 
   constructor(public _userS:UserService,public actRoute:ActivatedRoute) { }
 
@@ -24,7 +24,6 @@ export class DetallePublicacionComponent implements OnInit {
       this._userS.getPaginaBytitulo(titulo).subscribe(
         resp => {
           this.pagina = resp[0]
-          console.log(this.pagina)
         }
       )
     }

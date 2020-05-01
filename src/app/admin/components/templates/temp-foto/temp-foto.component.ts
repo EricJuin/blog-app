@@ -1,8 +1,10 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, OnDestroy, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { FileService } from '../../../../services/file.service';
 import { DialogImagenComponent } from '../../dialog-imagen/dialog-imagen.component';
+import { from } from 'rxjs';
+import { Componente } from 'src/app/models/componente';
 
 @Component({
   selector: 'app-temp-foto',
@@ -12,31 +14,41 @@ import { DialogImagenComponent } from '../../dialog-imagen/dialog-imagen.compone
 export class TempFotoComponent implements OnInit {
 
   form: FormGroup;
-  @Output() urlFotoProp = new EventEmitter<[number, string]>();
+  @Output() urlFotoProp = new EventEmitter<[number, Componente]>();
   @Input() index: number;//Posicion del componente
+  @Input() componente: Componente;
   imgMiniatura: string;
-  constructor(public dialog: MatDialog, public _fileS: FileService) { }
+  constructor(public dialog: MatDialog, public _fileS: FileService) {
+
+  }
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      urlFoto: new FormControl(this._fileS.imagen, { updateOn: "blur" })
+      urlFoto: new FormControl(this.componente.contenido, { updateOn: "blur" })
     })
+    this.imgMiniatura = this.urlFoto.value;
     this.form.controls['urlFoto'].statusChanges.subscribe(
-      resp => this.urlFotoProp.emit([this.index, this.urlFoto.value])
-    )
-    this.dialog.afterAllClosed.subscribe(
       resp => {
-        this.urlFoto.setValue(this._fileS.imagen)
-        this.imgMiniatura = this._fileS.imagen
-      }
-    );
+        
+        this.componente.contenido = this.urlFoto.value
+        this.urlFotoProp.emit([this.index,this.componente])
+      } 
+    )
+
   }
 
   get urlFoto() {
     return this.form.controls['urlFoto'];
   }
 
+
   abrirGaleriaFoto() {
-    this.dialog.open(DialogImagenComponent);
+    const dialogRef = this.dialog.open(DialogImagenComponent);
+    dialogRef.afterClosed().subscribe(
+      resp => {
+        this.urlFoto.setValue(resp)
+        this.imgMiniatura = this.urlFoto.value
+      }
+    );
   }
 } 

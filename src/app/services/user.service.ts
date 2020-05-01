@@ -12,7 +12,7 @@ export class UserService {
   constructor(public db:AngularFirestore) { }
 
   listUltimasPaginasPublicadas(){
-    return this.db.collection<Pagina>(this.DB_PAG).valueChanges();
+    return this.db.collection<Pagina>(this.DB_PAG, ref => ref.where('publicada','==',true)).valueChanges();
   }
 
   getPaginaBytitulo(titulo:string){

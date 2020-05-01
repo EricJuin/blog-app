@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Etiqueta } from '../../../models/etiqueta';
 import { AdminService } from '../../../services/admin.service';
@@ -21,7 +21,7 @@ export class FormEtiquetaComponent {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   nombreControl = new FormControl();
   etiquetas: Observable<Etiqueta[]>;
-  etiquetasSelec: string[] = [];
+  @Input() etiquetasSelec: string[] = [];
   allEtiquetas: string[] = [];
 
   @ViewChild('etiquetaInput') etiquetaInput: ElementRef<HTMLInputElement>;

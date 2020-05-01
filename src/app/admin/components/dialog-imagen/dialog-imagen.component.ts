@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FileService } from 'src/app/services/file.service';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { map } from 'rxjs/operators';
 
 export interface Item { id?: string, nombre: string, url: string, fechaSubida?: string }
@@ -34,8 +34,7 @@ export class DialogImagenComponent implements OnInit {
   }
   selectItem(item) {
     if (item) {
-      this._fileS.imagen = item.url;
-      this.dialogRef.close();
+      this.dialogRef.close(item.url);
     }
 
   }

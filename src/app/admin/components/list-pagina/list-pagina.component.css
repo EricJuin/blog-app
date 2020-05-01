@@ -10,3 +10,7 @@ table {
   td, th {
     width: 25%;
   }
+
+  .fila:hover{
+    background-color: grey;
+  }

@@ -1,10 +1,11 @@
-import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormArray, AbstractControl, FormBuilder } from '@angular/forms';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormGroup, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { Pagina } from '../../../models/pagina';
 import { ComponentesService } from '../../../services/componentes.service';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Componente } from '../../../models/componente';
 import { AdminService } from '../../../services/admin.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,36 +13,58 @@ import { AdminService } from '../../../services/admin.service';
   templateUrl: './form-pagina.component.html',
   styleUrls: ['./form-pagina.component.css']
 })
-export class FormPaginaComponent implements OnInit {
+export class FormPaginaComponent implements OnInit, OnDestroy {
 
-
-  componentes = [];
-  nombreComponentes = [];
   formPagina: FormGroup;
-  pagina: Pagina = new Pagina();
+  pagina: Pagina;
+  componentes: Componente[] = [];
   listaComponentes = [];//Plantilla de los componentes creados
 
-  constructor(public _compS: ComponentesService, public fb: FormBuilder, public _adminS:AdminService) {
-    this.componentes = this._compS.getComponentes();
-    this.createForm();
+  constructor(public _compS: ComponentesService,
+    public fb: FormBuilder,
+    public _adminS: AdminService,
+    public route: Router) {
+
+    if (this._adminS.pagina) {
+      this.pagina = this._adminS.pagina;
+      this.componentes = this.pagina.componentes;
+      this.createForm();
+    } else {
+      this.pagina = new Pagina();
+      this.createForm();
+    }
     this.listaComponentes = this._compS.getComponentes();
   }
+  ngOnDestroy(): void {
+    this._adminS.pagina = null;
+  }
 
-  get contenido() {
-    return this.formPagina.get('contenido') as FormArray;
+  ngOnInit(): void {
+
   }
 
   get etiquetas() {
     return this.formPagina.get('etiquetas') as FormArray;
   }
-
+  /**
+   * Crea el formulario de la página
+   */
   createForm() {
     this.formPagina = this.fb.group({
-      url: [this.pagina.url, [Validators.required]],
-      titulo: [this.pagina.titulo, [Validators.required]],
-      etiquetas: this.fb.array([]),
-      contenido: this.fb.array([])
+      titulo: [this.pagina.titulo, [Validators.required, Validators.maxLength(250)]],
+      etiquetas: this.fb.array(this.pagina.etiquetas)
     })
+  }
+
+  /**
+   * Elimina un item del contenido y de la lista de nombres
+   */
+  deleteItem(i) {
+    if (confirm("¿Seguro que quieres borrar el elemento?")) {
+
+      this.componentes.splice(i, 1);
+
+    }
   }
 
   /**
@@ -69,6 +92,21 @@ export class FormPaginaComponent implements OnInit {
    * Ver como queda la página
    */
   visualizar() {
+    const titulo = this.formPagina.controls['titulo'].value;
+    if (titulo !== '') {
+      window.open("/publicaciones/" + titulo, "_blank");
+    }
+
+  }
+  deletePagina() {
+    if (confirm("¿Está seguro de borrar la página?")) {
+      this._adminS.deletePagina(this.pagina).then(
+        resp => {
+          this.route.navigate(['/admin']);
+        }
+      );
+
+    }
 
   }
   /**
@@ -79,26 +117,36 @@ export class FormPaginaComponent implements OnInit {
     this.pagina = {
       titulo: this.formPagina.controls['titulo'].value,
       creador: null,
-      url: this.formPagina.controls['url'].value,
-      fechaCreacion: new Date().toDateString(),
+      ultimaEdicion: new Date().toDateString(),
       publicada: false,
       etiquetas: this.etiquetas.value,
-      componentes: []
+      componentes: this.componentes
     }
 
-    this.nombreComponentes.forEach((element,i) => {
-      let compPagina:Componente = {
-        nombre:element,
-        contenido:this.contenido.value[i]
+    this._adminS.addPagina(this.pagina).then(
+      resp => {
+        this.route.navigate(['/admin']);
       }
-      this.pagina.componentes.push(compPagina)
-    });
-    this._adminS.addPagina(this.pagina);
+    );
   }
-
-  ngOnInit(): void {
-
-
+  /**
+   * Actualiza la pagina cargada
+   */
+  updatePagina() {
+    const PagAux: Pagina = {
+      id: this.pagina.id,
+      titulo: this.formPagina.controls['titulo'].value,
+      creador: null,
+      ultimaEdicion: new Date().toDateString(),
+      publicada: false,
+      etiquetas: this.etiquetas.value,
+      componentes: this.componentes
+    }
+    this._adminS.updatePagina(PagAux).then(
+      resp => {
+        this.route.navigate(['/admin']);
+      }
+    );
   }
 
   //Apartado de la modificación/creación de componentes
@@ -114,65 +162,34 @@ export class FormPaginaComponent implements OnInit {
     }
 
     if (event.previousContainer !== event.container) {
-      this.returnComp(event.item.data.tipo);
+
+      this.componentes.push({ nombre: event.item.data.nombre, contenido: "" });
     }
     if (event.previousContainer.id === "cdk-drop-list-0" && event.container.id === "cdk-drop-list-0") {
-
-      moveItemInArray(this.nombreComponentes, event.previousIndex, event.currentIndex);
-      moveItemInArray(this.contenido.controls, event.previousIndex, event.currentIndex);
-      moveItemInArray(this.contenido.value, event.previousIndex, event.currentIndex);
-
+      moveItemInArray(this.componentes, event.previousIndex, event.currentIndex);
     }
 
   }
-
-  /**
- * Crea un componente segun el tipo que le inyectamos, el componente
- * debe de estar previamente creado en el servicio Componentes
- * y lo tenemos que añadir aqui, tambien hay que crear una plantilla
- * en admin/components/templates para añadirla dentro del switch
- * en form-pagina.html dentro
- * @param nombre El tipo de componente que vamos a crear
- */
-  returnComp(nombre: string) {
-    switch (nombre) {
-      case "TEXTO":
-        this.nombreComponentes.push(nombre);
-        this.contenido.push(this.fb.control(''));
-        break;
-      case "ENLACE":
-        this.nombreComponentes.push(nombre);
-        this.contenido.push(this.fb.control(''));
-        break;
-      case "FOTO":
-        this.nombreComponentes.push(nombre);
-        this.contenido.push(this.fb.control(''));
-        break;
-      default:
-        break;
-    }
-  }
-
   /**
    * El event es un array de 2 elemento [0]->posciondel componente [1]-> contenido
    * @param $event evento emitido a la hora de salir del componente texto
    */
   getEventTexto($event) {
-    this.contenido.at($event[0]).setValue($event[1]);
+    this.componentes[$event[0]] = $event[1]
   }
   /**
    * El event es un array de 2 elemento [0]->poscion del componente [1]-> contenido
    * @param $event evento emitido a la hora de salir del componente enlace
    */
   getEventEnlace($event) {
-    this.contenido.at($event[0]).setValue($event[1]);
+    this.componentes[$event[0]] = $event[1]
   }
   /**
    * El event es un array de 2 elemento [0]->poscion del componente [1]-> contenido
    * @param $event evento emitido a la hora de salir del componente foto
    */
   getEventFoto($event) {
-    this.contenido.at($event[0]).setValue($event[1]);
+    this.componentes[$event[0]] = $event[1]
   }
 
 }

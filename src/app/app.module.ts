@@ -14,9 +14,10 @@ import { FileService } from './services/file.service';
 import { PublicacionesComponent } from './components/publicaciones/publicaciones.component';
 import { ListMiniPublicacionesComponent } from './components/list-mini-publicaciones/list-mini-publicaciones.component';
 import { DetallePublicacionComponent } from './components/detalle-publicacion/detalle-publicacion.component';
-import { TempTextoComponent } from './components/templates/temp-texto/temp-texto.component';
-import { TempFotoComponent } from './components/templates/temp-foto/temp-foto.component';
-import { TempEnlaceComponent } from './components/templates/temp-enlace/temp-enlace.component';
+import { TempTextPaginaComponent } from './components/templates/temp-texto-pagina/temp-text-pagina.component';
+import { TempFotoPaginaComponent } from './components/templates/temp-foto-pagina/temp-foto-pagina.component';
+import { TempEnlacePaginaComponent } from './components/templates/temp-enlace-pagina/temp-enlace-pagina.component';
+import { LogComponent } from './components/log/log.component';
 
 
 
@@ -29,9 +30,10 @@ import { TempEnlaceComponent } from './components/templates/temp-enlace/temp-enl
     PublicacionesComponent,
     ListMiniPublicacionesComponent,
     DetallePublicacionComponent,
-    TempTextoComponent,
-    TempFotoComponent,
-    TempEnlaceComponent
+    TempTextPaginaComponent,
+    TempFotoPaginaComponent,
+    TempEnlacePaginaComponent,
+    LogComponent
   ],
   imports: [
     BrowserModule,

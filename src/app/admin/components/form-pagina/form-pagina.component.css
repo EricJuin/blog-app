@@ -15,6 +15,19 @@ mat-sidenav {
 
 }
 
+.boton-delete{
+  
+  position: absolute;
+  float: right;
+  width: 50px;
+  height: 50px;
+  z-index: 1000;
+}
+
+.example-box > div{
+  position: relative;
+}
+
 .full-height{
   height: 100%;
 }
@@ -27,14 +40,13 @@ mat-sidenav {
   align-items: center;
 }
 
-.material-icons:hover {
+.componente > span:hover {
   font-size: 70px;
 }
 
-.material-icons {
+.componente > span{
   width: auto;
   font-size: 60px;
-  color: white;
   padding: 0;
   margin: 0;
 }
@@ -49,13 +61,12 @@ mat-sidenav {
   right: 0;
   float: right;
   padding: 0;
-  box-shadow: grey -1px 1px 5px;
+  
 }
 
 .contenedor-etiquetas{
   width: 100%;
   height: 50px;
-  box-shadow: inset grey 0px 0px 5px;
 }
 
 /*Drag and drop CSS*/
@@ -70,7 +81,6 @@ mat-sidenav {
 .example-list {
   border: solid 1px #ccc;
   min-height: 60px;
-  background: white;
   border-radius: 4px;
   overflow: hidden;
   display: block;
@@ -86,7 +96,6 @@ mat-sidenav {
   justify-content: space-between;
   box-sizing: border-box;
   cursor: move;
-  background: white;
   font-size: 14px;
 }
 

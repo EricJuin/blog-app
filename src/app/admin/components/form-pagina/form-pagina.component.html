@@ -2,27 +2,25 @@
 
   <div class="row full-height">
     <div class="col-12 full-height">
-      <div class="p-2">
-        <button mat-raised-button color="primary" (click)="addPagina()">Guardar</button>
-        <button mat-raised-button>Vista previa</button>
-        <button mat-raised-button color="accent">Limpiar</button>
-        <button mat-raised-button color="warn">Eliminar</button>
+      <div class=" container d-flex justify-content-around p-2">
+        <button mat-raised-button color="primary" (click)="addPagina()" *ngIf="!pagina.id">Crear</button>
+        <button mat-raised-button color="primary" (click)="updatePagina()" *ngIf="pagina.id">Guardar</button>
+        <button mat-raised-button color="accent" (click)="visualizar()" *ngIf="pagina.id">Vista previa</button>
+        <button mat-raised-button color="warn" (click)="deletePagina()" *ngIf="pagina.id">Eliminar</button>
       </div>
 
       <form [formGroup]="formPagina" class="container">
         <div class="row">
-          <mat-form-field class="example-full-width col-6">
-            <mat-label>Url</mat-label>
-            <input matInput placeholder="Ex. Pizza" formControlName="url">
-          </mat-form-field>
-          <mat-form-field class="example-full-width col-6">
+          <mat-form-field class="example-full-width col-12" appearance="outline">
             <mat-label>Título</mat-label>
-            <input matInput placeholder="Ex. Pizza" formControlName="titulo">
+            <input matInput placeholder="Ej: Mañana me voy a comer una manzana" formControlName="titulo"
+              autocomplete="off">
           </mat-form-field>
           <div class="col-12 container-fluid">
             <div class="row">
               <div class="col-12">
-                <app-form-etiqueta (emisionEtiqueta)="getEtiqueta($event)"></app-form-etiqueta>
+                <app-form-etiqueta [etiquetasSelec]="etiquetas.value" (emisionEtiqueta)="getEtiqueta($event)">
+                </app-form-etiqueta>
               </div>
             </div>
           </div>
@@ -31,30 +29,43 @@
         <div cdkDropListGroup>
           <div class="col-12">
             <h2>Contenido</h2>
-            <div cdkDropList [cdkDropListData]="contenido" class="example-list" (cdkDropListDropped)="drop($event)"
-              formArrayName="contenido">
-              <div class="example-box" *ngFor="let item of contenido.controls; let i = index" cdkDrag>
-                <!--Se mira cual es el tipo de componente y según el que sea se crea el adecuado-->
-                <div [ngSwitch]="nombreComponentes[i]" class="container-fluid w-100">
-                  <div *ngSwitchCase="'TEXTO'" class="row">
-                    <app-temp-text class="col-12 border p-2" (textoProp)="getEventTexto($event)" [index]="i"></app-temp-text>
-                  </div>
-                  <div *ngSwitchCase="'ENLACE'" class="row">
-                    <app-temp-enlace class="col-12 border p-2" (enlaceProp)="getEventEnlace($event)" [index]="i"></app-temp-enlace>
-                  </div>
-                  <div *ngSwitchCase="'FOTO'" class="row">
-                    <app-temp-foto class="col-12 border p-2" (urlFotoProp)="getEventFoto($event)" [index]="i"></app-temp-foto>
+            <div cdkDropList [cdkDropListData]="componentes" class="example-list" (cdkDropListDropped)="drop($event)">
+              <div class="border p-2 col-12 border p-4" *ngIf="componentes.length === 0">
+                <h3 class="text-center">Inserte componentes</h3>
+              </div>
+              <div class="example-box" *ngFor="let item of componentes; let i = index" cdkDrag>
+
+                <div class="border p-2 col-12 border" *ngIf="componentes.length !== 0">
+                  <button mat-icon-button color="warn" (click)="deleteItem(i)" class="float-right" aria-label="Delete">
+                    <mat-icon>clear</mat-icon>
+                  </button>
+                  <!--Se mira cual es el tipo de componente y según el que sea se crea el adecuado-->
+                  <div [ngSwitch]="item.nombre" class="container-fluid w-100">
+                    <div *ngSwitchCase="'TEXTO'">
+                      <app-temp-text (textoProp)="getEventTexto($event)" [componente]="item" [index]="i">
+                      </app-temp-text>
+                    </div>
+                    <div *ngSwitchCase="'ENLACE'">
+                      <app-temp-enlace (enlaceProp)="getEventEnlace($event)" [componente]="item" [index]="i">
+                      </app-temp-enlace>
+                    </div>
+                    <div *ngSwitchCase="'FOTO'">
+                      <app-temp-foto (urlFotoProp)="getEventFoto($event)" [componente]="item" [index]="i">
+                      </app-temp-foto>
+                    </div>
                   </div>
                 </div>
+
               </div>
             </div>
           </div>
           <div class="componentes-contenedor">
-            <div cdkDropList [cdkDropListData]="componentes" (cdkDropListDropped)="drop($event)">
-              <div *ngFor="let item of componentes" cdkDrag [cdkDragData]="item" class="componente"><span
-                  class="material-icons">
+            <div cdkDropList [cdkDropListData]="listaComponentes" (cdkDropListDropped)="drop($event)">
+              <div *ngFor="let item of listaComponentes" cdkDrag [cdkDragData]="item" class="componente"><span
+                  class="material-icons" [matTooltip]="item.descripcion">
                   {{item.icono}}
-                </span></div>
+                </span>
+              </div>
             </div>
           </div>
         </div>

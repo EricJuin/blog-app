@@ -1,0 +1,19 @@
+.componente {
+  margin-bottom: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.componente>span:hover {
+  font-size: 70px;
+}
+
+.componente>span {
+  width: auto;
+  font-size: 60px;
+  padding: 0;
+  margin: 0;
+}
+

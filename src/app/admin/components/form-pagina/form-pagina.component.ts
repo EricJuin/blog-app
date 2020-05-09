@@ -18,7 +18,7 @@ export class FormPaginaComponent implements OnInit, OnDestroy {
   formPagina: FormGroup;
   pagina: Pagina;
   componentes: Componente[] = [];
-  listaComponentes = [];//Plantilla de los componentes creados
+  buttonToggleNav: boolean = true;
 
   constructor(public _compS: ComponentesService,
     public fb: FormBuilder,
@@ -33,7 +33,6 @@ export class FormPaginaComponent implements OnInit, OnDestroy {
       this.pagina = new Pagina();
       this.createForm();
     }
-    this.listaComponentes = this._compS.getComponentes();
   }
   ngOnDestroy(): void {
     this._adminS.pagina = null;
@@ -98,6 +97,9 @@ export class FormPaginaComponent implements OnInit, OnDestroy {
     }
 
   }
+  /**
+   * Elimina la página
+   */
   deletePagina() {
     if (confirm("¿Está seguro de borrar la página?")) {
       this._adminS.deletePagina(this.pagina).then(
@@ -156,20 +158,16 @@ export class FormPaginaComponent implements OnInit, OnDestroy {
  * @param event El coger un elemento para desplazarlo
  */
   drop(event: CdkDragDrop<string[]>) {
-
-    if (event.previousContainer.id === "cdk-drop-list-1" && event.container.id === "cdk-drop-list-1") {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    }
-
-    if (event.previousContainer !== event.container) {
-
-      this.componentes.push({ nombre: event.item.data.nombre, contenido: "" });
-    }
-    if (event.previousContainer.id === "cdk-drop-list-0" && event.container.id === "cdk-drop-list-0") {
-      moveItemInArray(this.componentes, event.previousIndex, event.currentIndex);
-    }
-
+    moveItemInArray(this.componentes, event.previousIndex, event.currentIndex);
   }
+  /**
+   * Añade el componente al que le hacemos click a la lista de componentes de la página
+   * @param $event evento al hacer click a un componente dentro de list-componente
+   */
+  getPropComponente($event) {
+    this.componentes.push($event);
+  }
+
   /**
    * El event es un array de 2 elemento [0]->posciondel componente [1]-> contenido
    * @param $event evento emitido a la hora de salir del componente texto

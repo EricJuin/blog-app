@@ -14,7 +14,8 @@ const routes: Routes = [
       {path:"",component:ListPaginaComponent},
       {path:"form-pagina",component:FormPaginaComponent},
       {path:"config",component:ConfigComponent},
-      {path:"multimedia",component:MultimediaComponent}
+      {path:"multimedia",component:MultimediaComponent},
+      {path:'**',pathMatch:'full',redirectTo:''}
     ]
   }
 ];

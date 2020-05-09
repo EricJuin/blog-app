@@ -7,9 +7,9 @@ import { FileService } from '../services/file.service';
 })
 export class NgDropFilesDirective {
 
-  @Input() archivos: Imagen[] = [];
+  archivos: Imagen[] = [];
 
-  constructor(public _fileS:FileService) { }
+  constructor(public _fileS: FileService) { }
 
   @HostListener('dragover', ['$event']) onMouseEnter($event) {
 
@@ -18,12 +18,20 @@ export class NgDropFilesDirective {
 
   @HostListener('drop', ['$event'])
   public onDrop($event: any) {
+    
     const transferencia = this._getTransferencia($event);
     if (!transferencia) {
       return;
     }
-
+    
     this._extraerArchivos(transferencia.files);
+    this._fileS.cargarImagenes(this.archivos);
+    this._preventDetention($event);
+  }
+  @HostListener('change', ['$event'])
+  public onChange($event: any) {
+    this._extraerArchivos($event.target.files);
+    
     this._fileS.cargarImagenes(this.archivos);
     this._preventDetention($event);
   }
@@ -43,6 +51,7 @@ export class NgDropFilesDirective {
         reader.onload = (_event) => {
           archivoNuevo.dataURL = reader.result;
         }
+
         this.archivos.push(archivoNuevo);
       }
     }
@@ -64,7 +73,7 @@ export class NgDropFilesDirective {
   }
 
   private _archivoExiste(nombreArchivo: string): boolean {
-    
+
     for (const archivo of this.archivos) {
       if (archivo.nombreArchivo === nombreArchivo) {
         return true;

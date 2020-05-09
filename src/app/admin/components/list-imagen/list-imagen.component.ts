@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FileService } from '../../../services/file.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Imagen } from 'src/app/models/imagen';
 
 export interface Item { id?: string, nombre: string, url: string, fechaSubida?: string }
 
@@ -13,7 +14,7 @@ export interface Item { id?: string, nombre: string, url: string, fechaSubida?: 
 export class ListImagenComponent implements OnInit {
 
   items: Observable<Item[]>;
-
+  archivos: Imagen[] = [];
   constructor(public _fileS: FileService) { }
 
   ngOnInit(): void {

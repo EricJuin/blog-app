@@ -1,9 +1,9 @@
-<section class="container-fluid" id="galeria">
-  <mat-card class="contenedor-img" *ngFor="let item of items | async">
-    <mat-card-content class="img">
-      <img [src]="item.url">
+<section appNgDropFiles  class="container-fluid card-columns" id="galeria">
+  <div class="card" *ngFor="let item of items | async">
+    <img [src]="item.url" class="card-img-top">
+    <div class="card-body">
       <button mat-button (click)="delete(item)"><span class="material-icons">delete</span></button>
-      <span>{{item.fechaSubida | date:'short'}}</span>
-    </mat-card-content>
-  </mat-card>
+      <p class="card-text"><small class="text-muted">{{item.fechaSubida | date:'short'}}</small></p>
+    </div>
+  </div>
 </section>

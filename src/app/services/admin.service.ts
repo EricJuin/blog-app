@@ -10,6 +10,8 @@ export class AdminService {
   private DB_PAG: string = "paginas";
   private DB_ETIQUETAS: string = "etiquetas";
 
+  EMAIL_ADMIN:string[] = ["ericpalmeral@gmail.com"];//Configurar antes de poner en 
+
   pagina: Pagina;
 
   constructor(public db: AngularFirestore) {

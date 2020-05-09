@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-log',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LogComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dialogRef: MatDialogRef<LogComponent>) { }
 
   ngOnInit(): void {
+  }
+
+  onSuccess(){
+    this.dialogRef.close();
   }
 
 }

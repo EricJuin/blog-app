@@ -10,8 +10,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { FormPaginaComponent } from './components/form-pagina/form-pagina.component';
 import { MatButtonModule } from '@angular/material/button';
-import { FotoComponent } from './components/foto/foto.component';
-import { TextoComponent } from './components/texto/texto.component';
 import {MatInputModule} from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatChipsModule} from '@angular/material/chips';
@@ -25,7 +23,6 @@ import { TempTextComponent } from './components/templates/temp-text/temp-text.co
 import { TempEnlaceComponent } from './components/templates/temp-enlace/temp-enlace.component';
 import { TempFotoComponent } from './components/templates/temp-foto/temp-foto.component';
 import { TempVideoComponent } from './components/templates/temp-video/temp-video.component';
-import { TempSaltoLineaComponent } from './components/templates/temp-salto-linea/temp-salto-linea.component';
 import { TempSubtituloComponent } from './components/templates/temp-subtitulo/temp-subtitulo.component';
 import { MultimediaComponent } from './components/multimedia/multimedia.component';
 import { FormImagenComponent } from './components/form-imagen/form-imagen.component';
@@ -42,20 +39,18 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { BotonCambioPublicadaComponent } from './components/boton-cambio-publicada/boton-cambio-publicada.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { ListComponentesComponent } from './components/list-componentes/list-componentes.component';
 
 @NgModule({
   declarations: [
     AdminComponent,
     FormPaginaComponent,
-    FotoComponent,
-    TextoComponent,
     ConfigComponent,
     FormEtiquetaComponent,
     TempTextComponent,
     TempEnlaceComponent,
     TempFotoComponent,
     TempVideoComponent,
-    TempSaltoLineaComponent,
     TempSubtituloComponent,
     MultimediaComponent,
     FormImagenComponent,
@@ -63,7 +58,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     ListImagenComponent,
     DialogImagenComponent,
     ListPaginaComponent,
-    BotonCambioPublicadaComponent
+    BotonCambioPublicadaComponent,
+    ListComponentesComponent
     
   ],
   imports: [

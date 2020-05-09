@@ -1,5 +1,6 @@
 import { IComponente } from './componente';
 import { Usuario } from './usuario';
+import { Comentario } from './comentario';
 export interface IPagina {
     id?: string;
     titulo: string;
@@ -8,6 +9,7 @@ export interface IPagina {
     publicada: boolean;
     etiquetas: string[];
     componentes: any[];
+    comentarios?: Comentario[];
 }
 export class Pagina implements IPagina {
 
@@ -18,5 +20,6 @@ export class Pagina implements IPagina {
     publicada = false;
     etiquetas: string[] = [];
     componentes: any[] = [];
+    comentarios?: Comentario[] = [];
 
 }

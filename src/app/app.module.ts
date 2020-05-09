@@ -18,9 +18,10 @@ import { TempTextPaginaComponent } from './components/templates/temp-texto-pagin
 import { TempFotoPaginaComponent } from './components/templates/temp-foto-pagina/temp-foto-pagina.component';
 import { TempEnlacePaginaComponent } from './components/templates/temp-enlace-pagina/temp-enlace-pagina.component';
 import { LogComponent } from './components/log/log.component';
-
-
-
+import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
+import { HeaderComponent } from './components/header/header.component'
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -33,17 +34,28 @@ import { LogComponent } from './components/log/log.component';
     TempTextPaginaComponent,
     TempFotoPaginaComponent,
     TempEnlacePaginaComponent,
-    LogComponent
+    LogComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    NgxAuthFirebaseUIModule.forRoot(environment.firebase,
+      () => "BlogApp",
+      {
+        authGuardFallbackURL: '',
+        authGuardLoggedInURL: '',
+        guardProtectedRoutesUntilEmailIsVerified: true,
+        enableEmailVerification: true,
+      }),
+    MatPasswordStrengthModule.forRoot(),
+    MatMenuModule
 
   ],
-  providers: [AdminService,FileService],
+  providers: [AdminService, FileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

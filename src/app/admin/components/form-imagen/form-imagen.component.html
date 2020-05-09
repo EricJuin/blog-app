@@ -1,14 +1,7 @@
-<div appNgDropFiles [archivos]="archivos" class="drop-zone d-flex justify-content-start">
-  <div *ngIf="archivos.length === 0">
-    Deje caer una foto para subirla
-  </div>
-  <div *ngFor="let archivo of archivos" class="contenedor-img ">
-    <div class="p-2">
+<div class="col-12 d-flex justify-content-around">
+  <form [formGroup]="form">
+    <input appNgDropFiles type="file" accept="image/*" capture="camera" formControlName="inputImg" appNgDropFiles>
+  </form>
 
-      <img [src]="archivo.dataURL" class="max-size">
-      <div class="position-sticky">
-        <mat-progress-bar mode="determinate" [value]="archivo.progreso" class="card-title"></mat-progress-bar>
-      </div>
-    </div>
-  </div>
+  <h4>... o arrastrar</h4>
 </div>

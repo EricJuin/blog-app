@@ -1,16 +1,16 @@
 import { Usuario } from './usuario';
 export interface IComentario {
     id?: string;
+    paginaId:string;
     usuario: Usuario;
     fecha: string;
     comentario: string;
-    respuestas: Comentario[];
 }
 
 export class Comentario implements IComentario {
     id?: string;
+    paginaId:string;
     usuario: Usuario;
     fecha: string;
     comentario: string;
-    respuestas: Comentario[] = [];
 }

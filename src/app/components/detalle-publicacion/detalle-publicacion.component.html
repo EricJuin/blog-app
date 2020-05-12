@@ -1,5 +1,5 @@
 <div class="container" *ngIf="pagina">
-    <div class="row">
+    <div class="row mb-2">
         <h1 class="col-12 text-center">{{pagina.titulo}}</h1>
         <small class="col-12 text-center">{{pagina.ultimaEdicion}}</small>
     </div>
@@ -15,5 +15,12 @@
                 <app-temp-foto-pagina [contenido]="componente.contenido"></app-temp-foto-pagina>
             </div>
         </div>
+    </div>
+
+    <div class="row mb-2 p-2" id="comentarios">
+        <app-form-comentario [paginaId]=pagina.id></app-form-comentario>
+    </div>
+    <div class="row mb-2 p-2">
+        <app-list-comentario [paginaId]=pagina.id class="w-100"></app-list-comentario>
     </div>
 </div>

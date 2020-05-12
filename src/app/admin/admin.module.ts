@@ -40,6 +40,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { BotonCambioPublicadaComponent } from './components/boton-cambio-publicada/boton-cambio-publicada.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { ListComponentesComponent } from './components/list-componentes/list-componentes.component';
+import { ComentariosComponent } from './components/comentarios/comentarios.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { ListComponentesComponent } from './components/list-componentes/list-com
     DialogImagenComponent,
     ListPaginaComponent,
     BotonCambioPublicadaComponent,
-    ListComponentesComponent
+    ListComponentesComponent,
+    ComentariosComponent
     
   ],
   imports: [

@@ -22,7 +22,10 @@ import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 import { HeaderComponent } from './components/header/header.component'
 import { MatMenuModule } from '@angular/material/menu';
-
+import { FormComentarioComponent, BottomSheetFormComentario } from './components/form-comentario/form-comentario.component';
+import { ListComentarioComponent } from './components/list-comentario/list-comentario.component';
+import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +38,10 @@ import { MatMenuModule } from '@angular/material/menu';
     TempFotoPaginaComponent,
     TempEnlacePaginaComponent,
     LogComponent,
-    HeaderComponent
+    HeaderComponent,
+    FormComentarioComponent,
+    ListComentarioComponent,
+    BottomSheetFormComentario
   ],
   imports: [
     BrowserModule,
@@ -52,8 +58,9 @@ import { MatMenuModule } from '@angular/material/menu';
         enableEmailVerification: true,
       }),
     MatPasswordStrengthModule.forRoot(),
-    MatMenuModule
-
+    MatMenuModule,
+    MatBottomSheetModule,
+    ReactiveFormsModule
   ],
   providers: [AdminService, FileService],
   bootstrap: [AppComponent]

@@ -3,13 +3,14 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Pagina } from '../models/pagina';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AdminService } from './admin.service';
-
+import { Comentario } from '../models/comentario';
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
   private DB_PAG: string = "paginas";
+  private DB_COMENTARIO: string = "comentarios";
   //private DB_USER: string = "users";
   usuario;
 
@@ -60,6 +61,7 @@ export class UserService {
   signOut() {
     return this.auth.signOut().then(() => {
       localStorage.removeItem('user');
+      this.usuario = null
     })
   }
   /**
@@ -76,5 +78,21 @@ export class UserService {
     return this.db.collection<Pagina>(this.DB_PAG, ref => ref.where('titulo', '==', titulo).limit(1)).valueChanges();
   }
 
+  //Parte de comentarios
+
+  /**
+   * Añade un comentario a la colección de comentarios
+   * @param comentario el comentario que se va añadir
+   */
+  addComentario(comentario: Comentario) {
+    return this.db.collection<Comentario>(this.DB_COMENTARIO).add(comentario);
+  }
+  /**
+   * Lista los comentarios de una página
+   * @param paginaId el id de la página  de la que vamos a sacar los comentarios
+   */
+  listComentarios(paginaId: string) {
+    return this.db.collection<Comentario>(this.DB_COMENTARIO, ref => ref.where('paginaId', '==', paginaId)).snapshotChanges();
+  }
 
 }

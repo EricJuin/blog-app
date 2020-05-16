@@ -3,6 +3,7 @@
         <li *ngIf="isAdminLogged"><a  [routerLink]="['/admin']" routerLinkActive="router-link-active" >admin</a></li>
         <li><a [routerLink]="['/publicaciones']">Publicaciones</a></li>
         <li *ngIf="!isLogged"><button mat-button (click)="abrirDialogLog()">Entrar</button></li>
+        <li><app-social-media></app-social-media></li>
         <li *ngIf="isLogged"><ngx-auth-firebaseui-avatar (onSignOut)="signOut()"></ngx-auth-firebaseui-avatar></li>
     </ul>
 </nav>

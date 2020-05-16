@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Etiqueta } from '../models/etiqueta';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Pagina } from '../models/pagina';
+import { SocialMedia } from '../models/social-media';
 @Injectable({
   providedIn: 'root'
 })
@@ -9,6 +10,7 @@ export class AdminService {
 
   private DB_PAG: string = "paginas";
   private DB_ETIQUETAS: string = "etiquetas";
+  private DB_SOCIALMEDIA:string = "socialMedia";
 
   EMAIL_ADMIN:string[] = ["ericpalmeral@gmail.com"];//Configurar antes de poner en 
 
@@ -29,8 +31,8 @@ export class AdminService {
     return this.db.collection(this.DB_PAG).add(pagina);
   }
 
-  updatePagina(pagina: Pagina) {
-    return this.db.doc(this.DB_PAG + "/" + pagina.id).update(pagina);
+  updatePagina(paginaId:string,pagina: Pagina) {
+    return this.db.doc(this.DB_PAG + "/" + paginaId).update(pagina);
   }
 
   cambioEstadoPublicada(pagina:Pagina,estado:boolean){
@@ -73,4 +75,5 @@ export class AdminService {
   get coleccionEtiqueta() {
     return this.db.collection<Etiqueta>(this.DB_ETIQUETAS);
   }
+
 }

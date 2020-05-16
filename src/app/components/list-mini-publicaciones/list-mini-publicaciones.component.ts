@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Pagina } from 'src/app/models/pagina';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list-mini-publicaciones',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class ListMiniPublicacionesComponent implements OnInit {
 
-  publicaciones: Pagina[];
+  publicaciones: Observable<Pagina[]>;
 
   constructor(public _userS: UserService, public route: Router) { }
 
@@ -20,10 +21,14 @@ export class ListMiniPublicacionesComponent implements OnInit {
   }
 
   listUltimasPublicaciones() {
-    this._userS.listUltimasPaginasPublicadas().subscribe(
-      resp => {
-        this.publicaciones = resp
-      }
+    this.publicaciones = this._userS.listUltimasPaginasPublicadas().pipe(
+      map( docs => docs.map(
+        doc =>{
+          const data = doc.payload.doc.data();
+          const id = doc.payload.doc.id;
+          return {id,...data} as Pagina
+        }
+      ))
 
     )
   }

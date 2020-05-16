@@ -23,7 +23,8 @@ export class DetallePublicacionComponent implements OnInit {
     if(titulo){
       this._userS.getPaginaBytitulo(titulo).subscribe(
         resp => {
-          this.pagina = resp[0]
+          
+          this.pagina = resp[0] 
         }
       )
     }

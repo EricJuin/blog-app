@@ -11,24 +11,27 @@ import { Observable } from 'rxjs';
 })
 export class ListComentarioComponent implements OnInit {
 
-  @Input() paginaId:string;
-  comentarios:Observable<Comentario[]>;
+  @Input() paginaId: string;
+  comentarios: Observable<Comentario[]>;
 
 
-  constructor(public _userS:UserService) { }
+  constructor(public _userS: UserService) { }
 
   ngOnInit(): void {
-    this.comentarios = this._userS.listComentarios(this.paginaId).pipe(
-      map(
-        resp => resp.map(
-          d => {
-            const data = d.payload.doc.data()
-            const id = d.payload.doc.id
-            return {id,...data}
-          }
+    if (this.paginaId !== '') {
+      this.comentarios = this._userS.listComentarios(this.paginaId).pipe(
+        map(
+          resp => resp.map(
+            d => {
+              const data = d.payload.doc.data()
+              const id = d.payload.doc.id
+              return { id, ...data }
+            }
+          )
         )
       )
-    )
+    }
+
   }
 
 

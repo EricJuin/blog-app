@@ -26,6 +26,10 @@ import { FormComentarioComponent, BottomSheetFormComentario } from './components
 import { ListComentarioComponent } from './components/list-comentario/list-comentario.component';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TempVideoPaginaComponent } from './components/templates/temp-video-pagina/temp-video-pagina.component';
+import { SocialMediaComponent } from './components/social-media/social-media.component';
+import {MatIconModule} from '@angular/material/icon';
+import { CookiesComponent } from './components/cookies/cookies.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +45,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     HeaderComponent,
     FormComentarioComponent,
     ListComentarioComponent,
-    BottomSheetFormComentario
+    BottomSheetFormComentario,
+    TempVideoPaginaComponent,
+    SocialMediaComponent,
+    CookiesComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +67,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatPasswordStrengthModule.forRoot(),
     MatMenuModule,
     MatBottomSheetModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatIconModule
   ],
   providers: [AdminService, FileService],
   bootstrap: [AppComponent]

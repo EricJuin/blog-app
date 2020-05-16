@@ -1,0 +1,13 @@
+.cookiesAccepted{
+    display: none;
+    
+}
+#cookies-panel{
+    width: 100%;
+}
+#cookies-panel > p{
+    text-align: center;
+}
+#cookies-panel {
+    text-align: center;
+}

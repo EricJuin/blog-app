@@ -68,7 +68,7 @@ export class UserService {
    * Lista las ultimas páginas publicadas
    */
   listUltimasPaginasPublicadas() {
-    return this.db.collection<Pagina>(this.DB_PAG, ref => ref.where('publicada', '==', true)).valueChanges();
+    return this.db.collection<Pagina>(this.DB_PAG, ref => ref.where('publicada', '==', true)).snapshotChanges();
   }
   /**
    * Busca una página por su título

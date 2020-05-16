@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Componente } from 'src/app/models/componente';
-import { ComponentesService } from 'src/app/services/componentes.service';
+import { ConfigService } from '../../../services/config.service';
 
 @Component({
   selector: 'app-list-componentes',
@@ -11,10 +11,10 @@ export class ListComponentesComponent implements OnInit {
 
   @Output() componenteProp:EventEmitter<Componente> = new EventEmitter();
   listaComponentes = [];//Plantilla de los componentes creados
-  constructor(public _compS: ComponentesService) { }
+  constructor(public _configS:ConfigService) { }
 
   ngOnInit(): void {
-    this.listaComponentes = this._compS.getComponentes();
+    this.listaComponentes = this._configS.getComponentes();
   }
 
   addItemPag(item:Componente){

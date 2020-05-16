@@ -5,7 +5,7 @@ export interface IPagina {
     id?: string;
     titulo: string;
     ultimaEdicion: string;
-    creador: Usuario;
+    creador: string;
     publicada: boolean;
     etiquetas: string[];
     componentes: any[];
@@ -16,7 +16,7 @@ export class Pagina implements IPagina {
     id?: string;
     titulo: string;
     ultimaEdicion: string;
-    creador: Usuario;
+    creador: string;
     publicada = false;
     etiquetas: string[] = [];
     componentes: any[] = [];

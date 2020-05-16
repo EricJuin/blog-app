@@ -14,13 +14,16 @@
             <div *ngSwitchCase="'FOTO'">
                 <app-temp-foto-pagina [contenido]="componente.contenido"></app-temp-foto-pagina>
             </div>
+            <div *ngSwitchCase="'VIDEO'">
+                <app-temp-video-pagina [contenido]="componente.contenido"></app-temp-video-pagina>
+            </div>
         </div>
     </div>
 
     <div class="row mb-2 p-2" id="comentarios">
         <app-form-comentario [paginaId]=pagina.id></app-form-comentario>
     </div>
-    <div class="row mb-2 p-2">
+    <div class="row mb-2 p-2" >
         <app-list-comentario [paginaId]=pagina.id class="w-100"></app-list-comentario>
     </div>
 </div>

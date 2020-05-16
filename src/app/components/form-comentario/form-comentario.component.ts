@@ -5,6 +5,9 @@ import { UserService } from '../../services/user.service';
 import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { Usuario } from '../../models/usuario';
 import { Comentario } from '../../models/comentario';
+import { ViewportScroller } from '@angular/common';
+import { LogComponent } from '../log/log.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-form-comentario',
   templateUrl: './form-comentario.component.html',
@@ -15,20 +18,25 @@ export class FormComentarioComponent implements OnInit {
   @Input() paginaId: string;
 
   constructor(public _bottomSheet: MatBottomSheet,
-    public _userS: UserService) { }
+    public _userS: UserService,
+    public viewportScroller: ViewportScroller,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
   /**
-   * Abre el bottomSheet para crear un comentario si el usuario esta registrado
+   * Abre el bottomSheet para crear un comentario si el usuario esta registrado y si no abre el dialog para registrarse
    */
   openBottomSheet(): void {
-    if(this._userS.usuario){
+    if (this._userS.usuario) {
       const bottomSheet = this._bottomSheet.open(BottomSheetFormComentario, { data: this.paginaId });
-    }else{
-
+    } else {
+      const dialogRef = this.dialog.open(LogComponent);
+      dialogRef.afterClosed().subscribe(
+        resp => this.ngOnInit()
+      )
     }
-    
+
   }
 }
 

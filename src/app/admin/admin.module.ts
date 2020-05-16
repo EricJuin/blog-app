@@ -16,7 +16,6 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatCardModule} from '@angular/material/card';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatSelectModule} from '@angular/material/select';
-import { ConfigComponent } from './components/config/config.component';
 import { FormEtiquetaComponent } from './components/form-etiqueta/form-etiqueta.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { TempTextComponent } from './components/templates/temp-text/temp-text.component';
@@ -40,13 +39,11 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { BotonCambioPublicadaComponent } from './components/boton-cambio-publicada/boton-cambio-publicada.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { ListComponentesComponent } from './components/list-componentes/list-componentes.component';
-import { ComentariosComponent } from './components/comentarios/comentarios.component';
 
 @NgModule({
   declarations: [
     AdminComponent,
     FormPaginaComponent,
-    ConfigComponent,
     FormEtiquetaComponent,
     TempTextComponent,
     TempEnlaceComponent,
@@ -60,8 +57,7 @@ import { ComentariosComponent } from './components/comentarios/comentarios.compo
     DialogImagenComponent,
     ListPaginaComponent,
     BotonCambioPublicadaComponent,
-    ListComponentesComponent,
-    ComentariosComponent
+    ListComponentesComponent
     
   ],
   imports: [

@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { Pagina } from '../../../models/pagina';
-import { ComponentesService } from '../../../services/componentes.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Componente } from '../../../models/componente';
 import { AdminService } from '../../../services/admin.service';
 import { Router } from '@angular/router';
+import { UserService } from '../../../services/user.service';
 
 
 @Component({
@@ -20,10 +20,11 @@ export class FormPaginaComponent implements OnInit, OnDestroy {
   componentes: Componente[] = [];
   buttonToggleNav: boolean = true;
 
-  constructor(public _compS: ComponentesService,
+  constructor(
     public fb: FormBuilder,
     public _adminS: AdminService,
-    public route: Router) {
+    public route: Router,
+    public _userS:UserService) {
 
     if (this._adminS.pagina) {
       this.pagina = this._adminS.pagina;
@@ -118,7 +119,7 @@ export class FormPaginaComponent implements OnInit, OnDestroy {
     this.pagina = new Pagina();
     this.pagina = {
       titulo: this.formPagina.controls['titulo'].value,
-      creador: null,
+      creador: this._userS.usuario.displayName,
       ultimaEdicion: new Date().toDateString(),
       publicada: false,
       etiquetas: this.etiquetas.value,
@@ -136,15 +137,14 @@ export class FormPaginaComponent implements OnInit, OnDestroy {
    */
   updatePagina() {
     const PagAux: Pagina = {
-      id: this.pagina.id,
       titulo: this.formPagina.controls['titulo'].value,
-      creador: null,
+      creador: this._userS.usuario.displayName,
       ultimaEdicion: new Date().toDateString(),
-      publicada: false,
+      publicada: this.pagina.publicada,
       etiquetas: this.etiquetas.value,
       componentes: this.componentes
     }
-    this._adminS.updatePagina(PagAux).then(
+    this._adminS.updatePagina(this.pagina.id,PagAux).then(
       resp => {
         this.route.navigate(['/admin']);
       }
@@ -189,5 +189,11 @@ export class FormPaginaComponent implements OnInit, OnDestroy {
   getEventFoto($event) {
     this.componentes[$event[0]] = $event[1]
   }
-
+  /**
+   * El event es un array de 2 elemento [0]->poscion del componente [1]-> contenido
+   * @param $event evento emitido a la hora de salir del componente foto
+   */
+  getEventVideo($event) {
+    this.componentes[$event[0]] = $event[1]
+  }
 }

@@ -1,4 +1,4 @@
-<div class="list-group">
+<div class="list-group" *ngIf="comentarios">
 
   <div *ngFor="let comentario of comentarios | async"
     class="list-group-item list-group-item-action flex-column align-items-start">

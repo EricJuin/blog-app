@@ -67,6 +67,10 @@
                           <app-temp-foto (urlFotoProp)="getEventFoto($event)" [componente]="item" [index]="i">
                           </app-temp-foto>
                         </div>
+                        <div *ngSwitchCase="'VIDEO'">
+                          <app-temp-video (urlVideoProp)="getEventFoto($event)" [componente]="item" [index]="i">
+                          </app-temp-video>
+                        </div>
                       </div>
                     </div>
 
